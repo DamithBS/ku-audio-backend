@@ -3,9 +3,15 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 
+
+import userRouter from "./routes/userRoute.js";
+
+
 const app = express();
 
 app.use(bodyParser.json());
+
+
 
 let mongourl = "mongodb+srv://Admin:1234@cluster0.erezo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
