@@ -18,7 +18,7 @@ connection.once("open",() => {
 })
 
 
-
+app.use("/api/users",userRouter)
 
 
 app.listen(3000, () => {
