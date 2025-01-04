@@ -2,10 +2,12 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
 
 import userRouter from "./routes/userRoute.js";
 
+dotenv.config();
 
 const app = express();
 
@@ -13,7 +15,7 @@ app.use(bodyParser.json());
 
 
 
-let mongourl = "mongodb+srv://Admin:1234@cluster0.erezo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+let mongourl = process.env.MONGO_URL;
 
 mongoose.connect(mongourl);
 
