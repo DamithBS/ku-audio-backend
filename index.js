@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 
 
 import userRouter from "./routes/userRoute.js";
+import reviewRouter from "./routes/reviewRoute.js";
 
 dotenv.config();
 
@@ -26,7 +27,8 @@ connection.once("open",() => {
 })
 
 
-app.use("/api/users",userRouter)
+app.use("/api/users",userRouter);
+app.use("/api/reviews",reviewRouter)
 
 
 app.listen(3000, () => {

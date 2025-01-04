@@ -47,7 +47,7 @@ export function loginUser(req,res){
                         email : user.email,
                         role : user.role
                     },process.env.JWT_SECRET)
-                    res.json({message:"password is correct",token:token})
+                    res.json({message:"User login Successful",token:token})
                 }
                 else{
                     res.status(401).json({error:"password is incorrect"})
