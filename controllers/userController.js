@@ -43,11 +43,12 @@ export function loginUser(req,res){
                 if(isPasswordCorrect){
                     const token = jwt.sign({
                         fristName : user.fristName,
-                        lastNamr : user.lastName,
+                        lastName : user.lastName,
                         email : user.email,
-                        role : user.role
+                        role : user.role,
+                        profilePicture : user.profilePicture
                     },process.env.JWT_SECRET)
-                    res.json({message:"User login Successful",token:token})
+                    res.json({message:"login Successful",token:token})
                 }
                 else{
                     res.status(401).json({error:"password is incorrect"})

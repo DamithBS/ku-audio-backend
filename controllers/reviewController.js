@@ -19,7 +19,7 @@ export function addReview (req,res){
 
     newReview.save().then( () =>{
         res.json({
-            message:"Review added successfill"
+            message:"Review added successful"
         })
     })
     .catch((error) => {
@@ -27,4 +27,26 @@ export function addReview (req,res){
             error:"Review additon failed"     
         });
     });
+}
+
+
+
+export function getReviews(req,res){
+
+    const user = req.user;
+
+    if(user == null || user.role != "admin"){
+        Review.find({
+            isApproved : true
+        }).then((reviews) => {
+            res.json(reviews);
+        })
+        return
+    }
+
+    if(user.role == "admin"){
+        Review.find().then((reviews) => {
+            res.json(reviews);
+            })
+    }
 }
