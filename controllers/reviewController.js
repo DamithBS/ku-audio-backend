@@ -1,6 +1,10 @@
 import Review from "../models/review.js";
 
-export function addReview (req,res){
+
+//add review from user .
+export async function addReview (req,res){
+
+    try{
 
     if(req.user == null){
         res.status(401).json({
@@ -17,42 +21,51 @@ export function addReview (req,res){
 
     const newReview = new Review(data)
 
-    newReview.save().then( () =>{
-        res.json({
-            message:"Review added successful"
-        })
+    await newReview.save() 
+    res.json({
+        message : "Review added successfully",
     })
-    .catch((error) => {
+
+    }
+
+    catch{
         res.status(500).json({
             error:"Review additon failed"     
         });
-    });
+    }
+
 }
 
+//show review from admin
+export async function getReviews(req,res){
 
-
-export function getReviews(req,res){
-
+    try{
     const user = req.user;
 
     if(user == null || user.role != "admin"){
-        Review.find({
-            isApproved : true
-        }).then((reviews) => {
-            res.json(reviews);
-        })
+        const review = await Review.find({isApproved:true})
+        res.json(review)
         return
     }
 
     if(user.role == "admin"){
-        Review.find().then((reviews) => {
-            res.json(reviews);
-            })
+        const review = await Review.find()
+        res.json(review)
     }
+   }
+
+   catch(error){
+    res.status(500).json({
+        error:"Error fetching reviews."
+        })
+   }
+
 }
 
+/// delete rewiew from admin and custermer
+export async function deleteReview(req,res){
 
-export function deleteReview(req,res){
+    try{
 
     const email =req.params.email;
 
@@ -65,48 +78,44 @@ export function deleteReview(req,res){
 
     if(req.user.role =="admin"){
 
-        Review.deleteOne({
-            email:email
-        }).then(() =>{
-            res.json({
-                message:"Review Delete Successful"
-            })
-        })
-        .catch(() =>{
-            res.status(500).json({
-                error:"Review Delete faild"
-            })
+        await Review.deleteOne({email:email})
+        res.json({
+            message:"Review Delete Successful"
         })
         return
     }
 
     if(req.user.role=="customer"){
 
+
         if(req.user.email == email){
-            Review.deleteOne({
-                email:email
-            }).then(() =>{
-                res.json({
-                    message:"Review Delete Successful"
+
+            await Review.deleteOne({email:email})
+            res.json({
+                message:"Review Delete Successful"
                 })
-            })
-            .catch(() =>{
-                res.status(500).json({
-                    error:"Review Delete faild"
-                })
-            })
+
         }
         else{
             res.status(403).json({
-                message:"Your are not authorized to perform this action"
+                message:"Review Delete faild"
             });
         }
     }
 
+    }
+
+    catch{
+        res.status(500).json({
+            error:"Your are not authorized to perform this action"
+            })
+    }
+
 }
 
-
-export function approveReview(req,res){
+//review approvel in admin ...
+export async function approveReview(req,res){
+    try{
     const email=req.params.email;
 
     if(req.user==null){
@@ -118,28 +127,25 @@ export function approveReview(req,res){
 
     if(req.user.role =="admin"){
 
-        Review.updateOne({
-            email:email,
-        },
-        {
-            isApproved:true,
+        await Review.updateOne({email:email,},{isApproved:true,})
+        res.json({
+            message:"Review Approved Successfully"
+            })
 
-        }).then(() =>{
-            res.json({
-                message:"Review Approved Successful"
-                })
-        })
-        .catch(() =>{
-            res.status(500).json({
-                error:"Review Approved faild"
-                })
-        })
     }
 
     else{
         res.status(403).json({
             message:"Your are not authorized to perform this action"
         })
+    }
+
+    }
+
+    catch{
+        res.status(500).json({
+            error:"Internal Server Error"
+            })
     }
 
 }

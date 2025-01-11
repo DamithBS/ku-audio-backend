@@ -40,7 +40,7 @@ mongoose.connect(mongourl);
 const connection = mongoose.connection
 
 connection.once("open",() => {
-    console.log("Connection create successful Connect......");   
+    console.log("Connection create Connect successful ......");   
 })
 
 
