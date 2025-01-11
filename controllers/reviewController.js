@@ -28,7 +28,7 @@ export async function addReview (req,res){
 
     }
 
-    catch{
+    catch(error){
         res.status(500).json({
             error:"Review additon failed"     
         });
@@ -105,7 +105,7 @@ export async function deleteReview(req,res){
 
     }
 
-    catch{
+    catch(error){
         res.status(500).json({
             error:"Your are not authorized to perform this action"
             })
@@ -142,7 +142,7 @@ export async function approveReview(req,res){
 
     }
 
-    catch{
+    catch(error){
         res.status(500).json({
             error:"Internal Server Error"
             })
