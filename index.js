@@ -8,6 +8,7 @@ import dotenv from "dotenv";
 import userRouter from "./routes/userRoute.js";
 import reviewRouter from "./routes/reviewRoute.js";
 import productRoute from "./routes/productRoute.js";
+import inquiryRoute from "./routes/inquiryRoute.js";
 
 dotenv.config();
 
@@ -48,6 +49,7 @@ connection.once("open",() => {
 app.use("/api/users",userRouter);
 app.use("/api/reviews",reviewRouter)
 app.use("/api/products",productRoute)
+app.use("/api/inquirys",inquiryRoute)
 
 
 app.listen(3000, () => {

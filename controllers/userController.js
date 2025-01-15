@@ -46,7 +46,8 @@ export function loginUser(req,res){
                         lastName : user.lastName,
                         email : user.email,
                         role : user.role,
-                        profilePicture : user.profilePicture
+                        profilePicture : user.profilePicture,
+                        phone : user.phone,
                     },process.env.JWT_SECRET)
                     res.json({message:"login Successful",token:token})
                 }
@@ -60,7 +61,7 @@ export function loginUser(req,res){
 }
 
 
-//user check admin or custermer function  create
+//user check admin or customer function  create
 
 export function isItAdmin(req){
     
@@ -70,4 +71,17 @@ export function isItAdmin(req){
         isAdmin=true;
     }
     return isAdmin;
+}
+
+
+///check customer function
+
+export function isItCustomer(req){
+    
+    let isCustomer = false;
+
+    if(req.user != null && req.user.role == "customer"){
+        isCustomer=true;
+    }
+    return isCustomer;
 }
