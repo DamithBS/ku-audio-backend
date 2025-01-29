@@ -49,7 +49,7 @@ export function loginUser(req,res){
                         profilePicture : user.profilePicture,
                         phone : user.phone,
                     },process.env.JWT_SECRET)
-                    res.json({message:"login Successful",token:token})
+                    res.json({message:"login Successful",token:token, user:user})
                 }
                 else{
                     res.status(401).json({error:"password is incorrect"})
