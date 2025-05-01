@@ -10,6 +10,7 @@ import userRouter from "./routes/userRoute.js";
 import reviewRouter from "./routes/reviewRoute.js";
 import productRoute from "./routes/productRoute.js";
 import inquiryRoute from "./routes/inquiryRoute.js";
+import orderRouter from "./routes/orderRoute.js";
 
 dotenv.config();
 
@@ -53,6 +54,7 @@ app.use("/api/users",userRouter);
 app.use("/api/reviews",reviewRouter)
 app.use("/api/products",productRoute)
 app.use("/api/inquirys",inquiryRoute)
+app.use("/api/orders",orderRouter)
 
 
 app.listen(3000, () => {
